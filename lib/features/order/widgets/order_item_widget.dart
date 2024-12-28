@@ -46,15 +46,15 @@ class OrderItemWidget extends StatelessWidget {
 
       Row(children: [
 
-        orderDetails.itemDetails!.imageFullUrl != null ? ClipRRect(
-          borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
-          child: CustomImageWidget(
-            height: 50, width: 50, fit: BoxFit.cover,
-            image: '${orderDetails.itemDetails!.imageFullUrl}',
-            //imageType: order.itemCampaignId != null ? ImageType.campaign_image_url.name : ImageType.item_image_url.name,
-            //storage: orderDetails.itemDetails!.storage,
-          ),
-        ) : const SizedBox(),
+        // orderDetails.itemDetails!.imageFullUrl != null ? ClipRRect(
+        //   borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+        //   child: CustomImageWidget(
+        //     height: 50, width: 50, fit: BoxFit.cover,
+        //     image: '${orderDetails.itemDetails!.imageFullUrl}',
+        //     //imageType: order.itemCampaignId != null ? ImageType.campaign_image_url.name : ImageType.item_image_url.name,
+        //     //storage: orderDetails.itemDetails!.storage,
+        //   ),
+        // ) : const SizedBox(),
         SizedBox(width: orderDetails.itemDetails!.imageFullUrl != null ? Dimensions.paddingSizeSmall : 0),
 
         Expanded(
@@ -62,18 +62,27 @@ class OrderItemWidget extends StatelessWidget {
 
             Row(children: [
 
-              Expanded(child: Text(
-                orderDetails.itemDetails!.name!,
-                style: PoppinsMedium.copyWith(fontSize: Dimensions.fontSizeSmall),
-                maxLines: 2, overflow: TextOverflow.ellipsis,
+              Expanded(child: Row(
+                children: [
+                  Text(
+               "${orderDetails.quantity.toString()} X " ,
+                style: PoppinsMedium.copyWith(color: Theme.of(context).primaryColor, fontSize: Dimensions.fontSizeDefault),
+              ),
+
+                  Text(
+                    orderDetails.itemDetails!.name!,
+                    style: PoppinsMedium.copyWith(fontSize: Dimensions.fontSizeDefault),
+                    maxLines: 2, overflow: TextOverflow.ellipsis,
+                  ),
+                ],
               )),
 
-              Text('${'quantity'.tr}:', style: PoppinsRegular.copyWith(fontSize: Dimensions.fontSizeSmall)),
+              // Text('${'quantity'.tr}:', style: PoppinsRegular.copyWith(fontSize: Dimensions.fontSizeSmall)),
 
-              Text(
-                orderDetails.quantity.toString(),
-                style: PoppinsMedium.copyWith(color: Theme.of(context).primaryColor, fontSize: Dimensions.fontSizeSmall),
-              ),
+              // Text(
+              //   orderDetails.quantity.toString(),
+              //   style: PoppinsMedium.copyWith(color: Theme.of(context).primaryColor, fontSize: Dimensions.fontSizeSmall),
+              // ),
 
             ]),
             const SizedBox(height: Dimensions.paddingSizeExtraSmall),

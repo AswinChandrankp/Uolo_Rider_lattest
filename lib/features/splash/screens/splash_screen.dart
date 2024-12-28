@@ -32,6 +32,13 @@ class SplashScreenState extends State<SplashScreen> {
 
     if(Get.find<AuthController>().isLoggedIn()) {
       Get.find<ProfileController>().getProfile();
+        WidgetsBinding.instance.addPostFrameCallback((_) async {
+
+     
+     
+      await    Get.find<OrderController>().getCurrentOrders();
+
+    });
     }
 
     bool firstTime = true;
@@ -56,15 +63,11 @@ class SplashScreenState extends State<SplashScreen> {
     Get.find<SplashController>().initSharedData();
     _route();
 
+  //    Get.find<AuthController>().isLoggedIn() {
+   
 
-     WidgetsBinding.instance.addPostFrameCallback((_) async {
-
-     
-     
-      await    Get.find<OrderController>().getCurrentOrders();
-
-    });
-
+  //  }
+    
   }
 
   @override

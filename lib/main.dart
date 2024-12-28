@@ -1,3 +1,4 @@
+
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/services.dart';
@@ -23,6 +24,7 @@ import 'helper/get_di.dart' as di;
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
 Future<void> main() async {
+  
   if(!GetPlatform.isWeb) {
     HttpOverrides.global = MyHttpOverrides();
   }
@@ -32,10 +34,10 @@ Future<void> main() async {
   if(GetPlatform.isAndroid) {
     await Firebase.initializeApp(
       options: const FirebaseOptions(
-      apiKey: "AIzaSyBsKYkb4r9kQjiWIHMcHX8XQ9RGtpiUuf4",
-        appId: "1:349709842275:android:a15c32725531f7bbc84556",
-        messagingSenderId: "349709842275",
-        projectId: "uolo-6b0e9",
+         apiKey: "AIzaSyBsKYkb4r9kQjiWIHMcHX8XQ9RGtpiUuf4", 
+  appId: "1:349709842275:android:a15c32725531f7bbc84556", 
+  messagingSenderId: "349709842275", 
+  projectId: "uolo-6b0e9",
   
       ),
     );
@@ -115,9 +117,15 @@ class MyApp extends StatelessWidget {
   }
 }
 
+
+
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
     return super.createHttpClient(context)..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
   }
 }
+
+
+
+

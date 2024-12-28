@@ -207,22 +207,31 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with WidgetsBin
                   child: Column(children: [
 
                     Row(children: [
-                      Text('${parcel! ? 'delivery_id'.tr : 'order_id'.tr}:', style: PoppinsRegular),
+                      Text('${parcel! ? 'delivery_id'.tr : 'order_id'.tr}:', style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500
+                      )),
                       const SizedBox(width: Dimensions.paddingSizeExtraSmall),
-                      Text(controllerOrderModel.id.toString(), style: PoppinsMedium),
+                      Text(controllerOrderModel.id.toString(), style: PoppinsMedium.copyWith( fontSize: Dimensions.fontSizeExtraLarge, color: Theme.of(context).primaryColor,fontWeight: FontWeight.w600)),
                       const SizedBox(width: Dimensions.paddingSizeExtraSmall),
                       const Expanded(child: SizedBox()),
                       Container(height: 7, width: 7, decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.green)),
                       const SizedBox(width: Dimensions.paddingSizeExtraSmall),
                       Text(
                         controllerOrderModel.orderStatus!.tr,
-                        style: PoppinsRegular,
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500
+                        ),
                       ),
                     ]),
-                    const SizedBox(height: Dimensions.paddingSizeLarge),
+                    // const SizedBox(height: Dimensions.paddingSizeLarge),
 
                     Row(children: [
-                      Text('${parcel ? 'charge_payer'.tr : 'item'.tr}:', style: PoppinsRegular),
+                      Text('${parcel ? 'charge_payer'.tr : 'item'.tr}:', style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500
+                      )),
                       const SizedBox(width: Dimensions.paddingSizeExtraSmall),
                       Text(
                         parcel ? controllerOrderModel.chargePayer!.tr : orderController.orderDetailsModel!.length.toString(),
@@ -244,12 +253,18 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with WidgetsBin
                       const Divider(height: Dimensions.paddingSizeLarge),
 
                       Row(children: [
-                        Text('${'cutlery'.tr}: ', style: PoppinsRegular),
+                        Text('${'cutlery'.tr}: ', style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500
+                        )),
                         const Expanded(child: SizedBox()),
 
                         Text(
                           controllerOrderModel.cutlery! ? 'yes'.tr : 'no'.tr,
-                          style: PoppinsRegular,
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500
+                          ),
                         ),
                       ]),
                     ]) : const SizedBox(),
@@ -263,7 +278,10 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with WidgetsBin
 
                           Text(
                             controllerOrderModel.unavailableItemNote!,
-                            style: PoppinsRegular,
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500
+                            ),
                           ),
                         ]),
                       ],
@@ -278,7 +296,10 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with WidgetsBin
                             style: PoppinsMedium.copyWith(color: Theme.of(context).textTheme.bodyMedium!.color),
                             children: <TextSpan>[
                               TextSpan(text: controllerOrderModel.deliveryInstruction!,
-                                  style: PoppinsRegular.copyWith(fontSize: Dimensions.fontSizeSmall)
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500
+                                  ).copyWith(fontSize: Dimensions.fontSizeSmall)
                               )
                             ]
                         ),
@@ -289,51 +310,58 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with WidgetsBin
                     const Divider(height: Dimensions.paddingSizeLarge),
                     const SizedBox(height: Dimensions.paddingSizeSmall),
 
-                    InfoCardWidget(
-                      title: parcel ? 'sender_details'.tr : 'store_details'.tr,
-                      address: parcel ? controllerOrderModel.deliveryAddress : DeliveryAddress(address: controllerOrderModel.storeAddress),
-                      image: parcel ? '' : '${controllerOrderModel.storeLogoFullUrl}',
-                      name: parcel ? controllerOrderModel.deliveryAddress!.contactPersonName : controllerOrderModel.storeName,
-                      phone: parcel ? controllerOrderModel.deliveryAddress!.contactPersonNumber : controllerOrderModel.storePhone,
-                      latitude: parcel ? controllerOrderModel.deliveryAddress!.latitude : controllerOrderModel.storeLat,
-                      longitude: parcel ? controllerOrderModel.deliveryAddress!.longitude : controllerOrderModel.storeLng,
-                      showButton: (controllerOrderModel.orderStatus != 'delivered' && controllerOrderModel.orderStatus != 'failed'
-                          && controllerOrderModel.orderStatus != 'canceled' && controllerOrderModel.orderStatus != 'refunded'),
-                      isStore: parcel ? false : true, isChatAllow: showChatPermission,
-                      messageOnTap: () => Get.toNamed(RouteHelper.getChatRoute(
-                        notificationBody: NotificationBodyModel(
-                          orderId: controllerOrderModel.id, vendorId: orderController.orderDetailsModel![0].vendorId,
-                        ),
-                        user: User(
-                          id: controllerOrderModel.storeId, fName: controllerOrderModel.storeName,
-                          imageFullUrl: controllerOrderModel.storeLogoFullUrl,
-                        ),
-                      )),
-                      order: order!,
+                    Padding(
+                      // padding: const EdgeInsets.all(8.0),
+                       padding: const EdgeInsets.only(left: 0,right: 0),
+                      child: InfoCardWidget(
+                        title: parcel ? 'sender_details'.tr : 'store_details'.tr,
+                        address: parcel ? controllerOrderModel.deliveryAddress : DeliveryAddress(address: controllerOrderModel.storeAddress),
+                        image: parcel ? '' : '${controllerOrderModel.storeLogoFullUrl}',
+                        name: parcel ? controllerOrderModel.deliveryAddress!.contactPersonName : controllerOrderModel.storeName,
+                        phone: parcel ? controllerOrderModel.deliveryAddress!.contactPersonNumber : controllerOrderModel.storePhone,
+                        latitude: parcel ? controllerOrderModel.deliveryAddress!.latitude : controllerOrderModel.storeLat,
+                        longitude: parcel ? controllerOrderModel.deliveryAddress!.longitude : controllerOrderModel.storeLng,
+                        showButton: (controllerOrderModel.orderStatus != 'delivered' && controllerOrderModel.orderStatus != 'failed'
+                            && controllerOrderModel.orderStatus != 'canceled' && controllerOrderModel.orderStatus != 'refunded'),
+                        isStore: parcel ? false : true, isChatAllow: showChatPermission,
+                        messageOnTap: () => Get.toNamed(RouteHelper.getChatRoute(
+                          notificationBody: NotificationBodyModel(
+                            orderId: controllerOrderModel.id, vendorId: orderController.orderDetailsModel![0].vendorId,
+                          ),
+                          user: User(
+                            id: controllerOrderModel.storeId, fName: controllerOrderModel.storeName,
+                            imageFullUrl: controllerOrderModel.storeLogoFullUrl,
+                          ),
+                        )),
+                        order: order!,
+                      ),
                     ),
                     const SizedBox(height: Dimensions.paddingSizeLarge),
 
-                    InfoCardWidget(
-                      title: parcel ? 'receiver_details'.tr : 'customer_contact_details'.tr,
-                      address: parcel ? controllerOrderModel.receiverDetails : controllerOrderModel.deliveryAddress,
-                      image: parcel ? '' : controllerOrderModel.customer != null ? '${controllerOrderModel.customer!.imageFullUrl}' : '',
-                      name: parcel ? controllerOrderModel.receiverDetails!.contactPersonName : controllerOrderModel.deliveryAddress!.contactPersonName,
-                      phone: parcel ? controllerOrderModel.receiverDetails!.contactPersonNumber : controllerOrderModel.deliveryAddress!.contactPersonNumber,
-                      latitude: parcel ? controllerOrderModel.receiverDetails!.latitude : controllerOrderModel.deliveryAddress!.latitude,
-                      longitude: parcel ? controllerOrderModel.receiverDetails!.longitude : controllerOrderModel.deliveryAddress!.longitude,
-                      showButton: controllerOrderModel.orderStatus != 'delivered' && controllerOrderModel.orderStatus != 'failed'
-                          && controllerOrderModel.orderStatus != 'canceled' && controllerOrderModel.orderStatus != 'refunded',
-                      isStore: parcel ? false : true, isChatAllow: showChatPermission,
-                      messageOnTap: () => Get.toNamed(RouteHelper.getChatRoute(
-                        notificationBody: NotificationBodyModel(
-                          orderId: controllerOrderModel.id, customerId: controllerOrderModel.customer!.id,
-                        ),
-                        user: User(
-                          id: controllerOrderModel.customer!.id, fName: controllerOrderModel.customer!.fName,
-                          lName: controllerOrderModel.customer!.lName, imageFullUrl: controllerOrderModel.customer!.imageFullUrl,
-                        ),
-                      )),
-                      order: order,
+                    Padding(
+                      padding: const EdgeInsets.only(left: 0,right: 0),
+                      child: InfoCardWidget(
+                        title: parcel ? 'receiver_details'.tr : 'customer_contact_details'.tr,
+                        address: parcel ? controllerOrderModel.receiverDetails : controllerOrderModel.deliveryAddress,
+                        image: parcel ? '' : controllerOrderModel.customer != null ? '${controllerOrderModel.customer!.imageFullUrl}' : '',
+                        name: parcel ? controllerOrderModel.receiverDetails!.contactPersonName : controllerOrderModel.deliveryAddress!.contactPersonName,
+                        phone: parcel ? controllerOrderModel.receiverDetails!.contactPersonNumber : controllerOrderModel.deliveryAddress!.contactPersonNumber,
+                        latitude: parcel ? controllerOrderModel.receiverDetails!.latitude : controllerOrderModel.deliveryAddress!.latitude,
+                        longitude: parcel ? controllerOrderModel.receiverDetails!.longitude : controllerOrderModel.deliveryAddress!.longitude,
+                        showButton: controllerOrderModel.orderStatus != 'delivered' && controllerOrderModel.orderStatus != 'failed'
+                            && controllerOrderModel.orderStatus != 'canceled' && controllerOrderModel.orderStatus != 'refunded',
+                        isStore: parcel ? false : true, isChatAllow: showChatPermission,
+                        messageOnTap: () => Get.toNamed(RouteHelper.getChatRoute(
+                          notificationBody: NotificationBodyModel(
+                            orderId: controllerOrderModel.id, customerId: controllerOrderModel.customer!.id,
+                          ),
+                          user: User(
+                            id: controllerOrderModel.customer!.id, fName: controllerOrderModel.customer!.fName,
+                            lName: controllerOrderModel.customer!.lName, imageFullUrl: controllerOrderModel.customer!.imageFullUrl,
+                          ),
+                        )),
+                        order: order,
+                      ),
                     ),
                     const SizedBox(height: Dimensions.paddingSizeLarge),
 
@@ -345,7 +373,10 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with WidgetsBin
                         boxShadow: Get.isDarkMode ? null : [BoxShadow(color: Colors.grey[200]!, spreadRadius: 1, blurRadius: 5)],
                       ),
                       child: controllerOrderModel.parcelCategory != null ? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                        Text('parcel_category'.tr, style: PoppinsRegular),
+                        Text('parcel_category'.tr, style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500
+                        )),
                         const SizedBox(height: Dimensions.paddingSizeExtraSmall),
                         Row(children: [
                           ClipOval(child: CustomImageWidget(
@@ -356,34 +387,58 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with WidgetsBin
                           Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                             Text(
                               controllerOrderModel.parcelCategory!.name!, maxLines: 1, overflow: TextOverflow.ellipsis,
-                              style: PoppinsRegular.copyWith(fontSize: Dimensions.fontSizeSmall),
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500
+                              ).copyWith(fontSize: Dimensions.fontSizeSmall),
                             ),
                             Text(
                               controllerOrderModel.parcelCategory!.description!, maxLines: 1, overflow: TextOverflow.ellipsis,
-                              style: PoppinsRegular.copyWith(fontSize: Dimensions.fontSizeSmall, color: Theme.of(context).disabledColor),
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500
+                              ).copyWith(fontSize: Dimensions.fontSizeSmall, color: Theme.of(context).disabledColor),
                             ),
                           ])),
                         ]),
                       ]) : SizedBox(
                         width: context.width,
                         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                          Text('parcel_category'.tr, style: PoppinsRegular),
+                          Text('parcel_category'.tr, style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500
+                          )),
                           const SizedBox(height: Dimensions.paddingSizeExtraSmall),
 
                           Text('no_parcel_category_data_found'.tr, style: PoppinsMedium),
                         ]),
                       ),
-                    ) : ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: orderController.orderDetailsModel!.length,
-                      itemBuilder: (context, index) {
-                        return OrderItemWidget(order: controllerOrderModel, orderDetails: orderController.orderDetailsModel![index]);
-                      },
+                    ) : Container(
+
+                      child: Column(
+                        children: [
+                          Text('items'.tr, style: TextStyle(
+                            color: Theme.of(context).disabledColor,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600
+                          )),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: orderController.orderDetailsModel!.length,
+                            itemBuilder: (context, index) {
+                              return OrderItemWidget(order: controllerOrderModel, orderDetails: orderController.orderDetailsModel![index]);
+                            },
+                          ),
+                        ],
+                      ),
                     ),
 
                     (controllerOrderModel.orderNote  != null && controllerOrderModel.orderNote!.isNotEmpty) ? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                      Text('additional_note'.tr, style: PoppinsRegular),
+                      Text('additional_note'.tr, style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500
+                      )),
                       const SizedBox(height: Dimensions.paddingSizeSmall),
                       Container(
                         width: 1170,
@@ -394,7 +449,10 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with WidgetsBin
                         ),
                         child: Text(
                           controllerOrderModel.orderNote!,
-                          style: PoppinsRegular.copyWith(fontSize: Dimensions.fontSizeSmall, color: Theme.of(context).disabledColor),
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500
+                          ).copyWith(fontSize: Dimensions.fontSizeSmall, color: Theme.of(context).disabledColor),
                         ),
                       ),
                       const SizedBox(height: Dimensions.paddingSizeLarge),
@@ -402,7 +460,10 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with WidgetsBin
                       (Get.find<SplashController>().getModule(controllerOrderModel.moduleType).orderAttachment!
                       && controllerOrderModel.orderAttachmentFullUrl != null && controllerOrderModel.orderAttachmentFullUrl!.isNotEmpty)
                       ? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                        Text('prescription'.tr, style: PoppinsRegular),
+                        Text('prescription'.tr, style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500
+                        )),
                         const SizedBox(height: Dimensions.paddingSizeSmall),
                         Center(child: ClipRRect(
                           borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
@@ -419,7 +480,10 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with WidgetsBin
                     (controllerOrderModel.orderStatus == 'delivered' && controllerOrderModel.orderProofFullUrl != null
                     && controllerOrderModel.orderProofFullUrl!.isNotEmpty) ? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                       const SizedBox(height: Dimensions.paddingSizeSmall),
-                      Text('order_proof'.tr, style: PoppinsRegular),
+                      Text('order_proof'.tr, style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500
+                      )),
                       const SizedBox(height: Dimensions.paddingSizeSmall),
 
                       GridView.builder(
@@ -450,12 +514,18 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with WidgetsBin
 
                       const SizedBox(height: Dimensions.paddingSizeLarge),
                     ]) : const SizedBox(),
-                    const SizedBox(height: Dimensions.paddingSizeExtraLarge),
+                    // const SizedBox(height: Dimensions.paddingSizeExtraLarge),`
 
                     !parcel ? Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                      Text('item_price'.tr, style: PoppinsRegular),
+                      Text('item_price'.tr, style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500
+                      )),
                       Row(mainAxisSize: MainAxisSize.min, children: [
-                        Text(PriceConverterHelper.convertPrice(itemsPrice), style: PoppinsRegular),
+                        Text(PriceConverterHelper.convertPrice(itemsPrice), style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500
+                        )),
                       ]),
                     ]) : const SizedBox(),
                     SizedBox(height: !parcel ? 10 : 0),
@@ -463,8 +533,14 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with WidgetsBin
                     Get.find<SplashController>().getModuleConfig(order.moduleType).addOn! ? Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('addons'.tr, style: PoppinsRegular),
-                        Text('(+) ${PriceConverterHelper.convertPrice(addOns)}', style: PoppinsRegular),
+                        Text('addons'.tr, style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500
+                        )),
+                        Text('+ ${PriceConverterHelper.convertPrice(addOns)}', style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500
+                        )),
                       ],
                     ) : const SizedBox(),
 
@@ -479,67 +555,101 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with WidgetsBin
                         Text(PriceConverterHelper.convertPrice(subTotal), style: PoppinsMedium),
                       ],
                     ) : const SizedBox(),
-                    SizedBox(height: Get.find<SplashController>().getModuleConfig(order.moduleType).addOn! ? 10 : 0),
+                    // SizedBox(height: Get.find<SplashController>().getModuleConfig(order.moduleType).addOn! ? 10 : 0),
 
-                    !parcel ? Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                      Text('discount'.tr, style: PoppinsRegular),
-                      Row(mainAxisSize: MainAxisSize.min, children: [
-                        Text('(-) ${PriceConverterHelper.convertPrice(discount)}', style: PoppinsRegular),
-                      ]),
-                    ]) : const SizedBox(),
-                    SizedBox(height: !parcel ? 10 : 0),
+                    // !parcel ? Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                    //   Text('discount'.tr, style: TextStyle(
+                    // fontSize: 15,
+                    // fontWeight:FontWeight.w500)),
+                    //   Row(mainAxisSize: MainAxisSize.min, children: [
+                    //     Text('(-) ${PriceConverterHelper.convertPrice(discount)}', style: TextStyle(
+                    // fontSize: 15,
+                    // fontWeight:FontWeight.w500)),
+                    //   ]),
+                    // ]) : const SizedBox(),
+                    // SizedBox(height: !parcel ? 10 : 0),
 
-                    couponDiscount > 0 ? Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                      Text('coupon_discount'.tr, style: PoppinsRegular),
-                      Text(
-                        '(-) ${PriceConverterHelper.convertPrice(couponDiscount)}',
-                        style: PoppinsRegular,
-                      ),
-                    ]) : const SizedBox(),
-                    SizedBox(height: couponDiscount > 0 ? 10 : 0),
+                    // couponDiscount > 0 ? Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                    //   Text('coupon_discount'.tr, style: TextStyle(
+                    // fontSize: 15,
+                    // fontWeight:FontWeight.w500)),
+                    //   Text(
+                    //     '(-) ${PriceConverterHelper.convertPrice(couponDiscount)}',
+                    //     style: TextStyle(
+                    // fontSize: 15,
+                    // fontWeight:FontWeight.w500),
+                    //   ),
+                    // ]) : const SizedBox(),
+                    // SizedBox(height: couponDiscount > 0 ? 10 : 0),
 
-                    (referrerBonusAmount > 0) ? Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('referral_discount'.tr, style: PoppinsRegular),
-                        Text('(-) ${PriceConverterHelper.convertPrice(referrerBonusAmount)}', style: PoppinsRegular),
-                      ],
-                    ) : const SizedBox(),
-                    SizedBox(height: referrerBonusAmount > 0 ? 10 : 0),
+                    // (referrerBonusAmount > 0) ? Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   children: [
+                    //     Text('referral_discount'.tr, style: TextStyle(
+                    // fontSize: 15,
+                    // fontWeight:FontWeight.w500)),
+                    //     Text('(-) ${PriceConverterHelper.convertPrice(referrerBonusAmount)}', style: TextStyle(
+                    // fontSize: 15,
+                    // fontWeight:FontWeight.w500)),
+                    //   ],
+                    // ) : const SizedBox(),
+                    // SizedBox(height: referrerBonusAmount > 0 ? 10 : 0),
 
-                    !taxIncluded && !parcel ? Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                      Text('vat_tax'.tr, style: PoppinsRegular),
-                      Text('(+) ${PriceConverterHelper.convertPrice(tax)}', style: PoppinsRegular),
-                    ]) : const SizedBox(),
-                    SizedBox(height: taxIncluded ? 0 : 10),
+                    // !taxIncluded && !parcel ? Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                    //   Text('vat_tax'.tr, style: TextStyle(
+                    // fontSize: 15,
+                    // fontWeight:FontWeight.w500)),
+                    //   Text('(+) ${PriceConverterHelper.convertPrice(tax)}', style: TextStyle(
+                    // fontSize: 15,
+                    // fontWeight:FontWeight.w500)),
+                    // ]) : const SizedBox(),
+                    // SizedBox(height: taxIncluded ? 0 : 10),
 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('delivery_man_tips'.tr, style: PoppinsRegular),
-                        Text('(+) ${PriceConverterHelper.convertPrice(dmTips)}', style: PoppinsRegular),
-                      ],
-                    ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   children: [
+                    //     Text('delivery_man_tips'.tr, style: TextStyle(
+                    // fontSize: 15,
+                    // fontWeight:FontWeight.w500)),
+                    //     Text('(+) ${PriceConverterHelper.convertPrice(dmTips)}', style: TextStyle(
+                    // fontSize: 15,
+                    // fontWeight:FontWeight.w500)),
+                    //   ],
+                    // ),
                     const SizedBox(height: 10),
 
-                    (extraPackagingAmount > 0) ? Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('extra_packaging'.tr, style: PoppinsRegular),
-                        Text('(+) ${PriceConverterHelper.convertPrice(extraPackagingAmount)}', style: PoppinsRegular),
-                      ],
-                    ) : const SizedBox(),
-                    SizedBox(height: extraPackagingAmount > 0 ? 10 : 0),
+                    // (extraPackagingAmount > 0) ? Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   children: [
+                    //     Text('extra_packaging'.tr, style: TextStyle(
+                    // fontSize: 15,
+                    // fontWeight:FontWeight.w500)),
+                    //     Text('(+) ${PriceConverterHelper.convertPrice(extraPackagingAmount)}', style: TextStyle(
+                    // fontSize: 15,
+                    // fontWeight:FontWeight.w500)),
+                    //   ],
+                    // ) : const SizedBox(),
+                    // SizedBox(height: extraPackagingAmount > 0 ? 10 : 0),
 
-                    (order.additionalCharge != null && order.additionalCharge! > 0) ? Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                      Text(Get.find<SplashController>().configModel!.additionalChargeName!, style: PoppinsRegular),
-                      Text('(+) ${PriceConverterHelper.convertPrice(order.additionalCharge)}', style: PoppinsRegular, textDirection: TextDirection.ltr),
-                    ]) : const SizedBox(),
+                    // (order.additionalCharge != null && order.additionalCharge! > 0) ? Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                    //   Text(Get.find<SplashController>().configModel!.additionalChargeName!, style: TextStyle(
+                    // fontSize: 15,
+                    // fontWeight:FontWeight.w500)),
+                    //   Text('(+) ${PriceConverterHelper.convertPrice(order.additionalCharge)}', style: TextStyle(
+                    //fontSize: 15,
+                    //fontWeight: FontWeight.w500), textDirection: TextDirection.ltr),
+                    // ]) : const SizedBox(),
                     (order.additionalCharge != null && order.additionalCharge! > 0) ? const SizedBox(height: 10) : const SizedBox(),
 
                     Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                      Text('delivery_fee'.tr, style: PoppinsRegular),
-                      Text('(+) ${PriceConverterHelper.convertPrice(deliveryCharge)}', style: PoppinsRegular),
+                      Text('delivery_fee'.tr, style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500
+                      )),
+                      Text('+ ${PriceConverterHelper.convertPrice(deliveryCharge)}', style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500
+                      )),
                     ]),
 
                     Padding(
@@ -572,19 +682,31 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with WidgetsBin
                           const SizedBox(height: 10),
 
                           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                            Text('paid_by_wallet'.tr, style: !restConfModel ? PoppinsMedium : PoppinsRegular),
+                            Text('paid_by_wallet'.tr, style: !restConfModel ? PoppinsMedium : TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500
+                            )),
                             Text(
                               PriceConverterHelper.convertPrice(order.payments![0].amount),
-                              style: !restConfModel ? PoppinsMedium : PoppinsRegular,
+                              style: !restConfModel ? PoppinsMedium : TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500
+                              ),
                             ),
                           ]),
                           const SizedBox(height: 10),
 
                           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                            Text('${order.payments?[1].paymentStatus == 'paid' ? 'paid_by'.tr : 'due_amount'.tr} (${order.payments![1].paymentMethod?.tr})', style: !restConfModel ? PoppinsMedium : PoppinsRegular),
+                            Text('${order.payments?[1].paymentStatus == 'paid' ? 'paid_by'.tr : 'due_amount'.tr} (${order.payments![1].paymentMethod?.tr})', style: !restConfModel ? PoppinsMedium : TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500
+                            )),
                             Text(
                               PriceConverterHelper.convertPrice(order.payments![1].amount),
-                              style: !restConfModel ? PoppinsMedium : PoppinsRegular,
+                              style: !restConfModel ? PoppinsMedium : TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500
+                              ),
                             ),
                           ]),
                         ]),
@@ -594,11 +716,11 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with WidgetsBin
 
                     !partialPay ? Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                       Text('total_amount'.tr, style: PoppinsMedium.copyWith(
-                        fontSize: Dimensions.fontSizeLarge, color: Theme.of(context).primaryColor,
+                        fontSize: Dimensions.fontSizeExtraLarge, color: Theme.of(context).primaryColor,fontWeight: FontWeight.w600
                       )),
                       Text(
                         PriceConverterHelper.convertPrice(total),
-                        style: PoppinsMedium.copyWith(fontSize: Dimensions.fontSizeLarge, color: Theme.of(context).primaryColor),
+                        style: PoppinsMedium.copyWith( fontSize: Dimensions.fontSizeExtraLarge, color: Theme.of(context).primaryColor,fontWeight: FontWeight.w600),
                       ),
                     ]) : const SizedBox(),
 
@@ -612,7 +734,10 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with WidgetsBin
                     borderRadius: const BorderRadius.vertical(top: Radius.circular(Dimensions.radiusDefault)),
                   ),
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    Text('completed_after_delivery_picture'.tr, style: PoppinsRegular),
+                    Text('completed_after_delivery_picture'.tr, style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500
+                    )),
                     const SizedBox(height: Dimensions.paddingSizeSmall),
 
                     Container(
@@ -721,7 +846,10 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with WidgetsBin
                         side: BorderSide(width: 1, color: Theme.of(context).textTheme.bodyLarge!.color!),
                       ),
                     ),
-                    child: Text('cancel'.tr, textAlign: TextAlign.center, style: PoppinsRegular.copyWith(
+                    child: Text('cancel'.tr, textAlign: TextAlign.center, style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500
+                    ).copyWith(
                       color: Theme.of(context).textTheme.bodyLarge!.color,
                       fontSize: Dimensions.fontSizeLarge,
                     )),
@@ -833,18 +961,20 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with WidgetsBin
                         : pickedUp! ? parcel ? 'swipe_to_deliver_parcel'.tr
                         : 'swipe_to_deliver_order'.tr : handover! ? parcel ? 'swipe_to_pick_up_parcel'.tr
                         : 'swipe_to_pick_up_order'.tr : '',
-                    style: PoppinsMedium.copyWith(fontSize: Dimensions.fontSizeLarge, color: Theme.of(context).primaryColor),
+                    style: PoppinsMedium.copyWith(fontSize: Dimensions.fontSizeLarge, color: Theme.of(context).cardColor),
                   ),
                   dismissThresholds: 0.5, dismissible: false, shimmer: true,
                   width: 1170, height: 60, buttonSize: 50, radius: 10,
                   icon: Center(child: Icon(
                     Get.find<LocalizationController>().isLtr ? Icons.double_arrow_sharp : Icons.keyboard_arrow_left,
-                    color: Colors.white, size: 20.0,
+                    color: Colors.white, size: 40.0,
                   )),
                   isLtr: Get.find<LocalizationController>().isLtr,
                   boxShadow: const BoxShadow(blurRadius: 0),
                   buttonColor: Theme.of(context).primaryColor,
-                  backgroundColor: const Color(0xffF4F7FC),
+                  backgroundColor:
+                  Theme.of(context).primaryColor,
+                  //  const Color(0xffF4F7FC),
                   baseColor: Theme.of(context).primaryColor,
                 ) : const SizedBox() : const SizedBox(),
 

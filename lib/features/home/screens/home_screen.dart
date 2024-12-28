@@ -661,6 +661,8 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       // backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
+        leading: SizedBox(),
+        leadingWidth: 0,
         backgroundColor: Theme.of(context).primaryColor,
         titleSpacing: 0,
         elevation: 0,
@@ -950,22 +952,37 @@ class HomeScreen extends StatelessWidget {
                               height: 200,
                               
                               decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.all(Radius.circular(20)),
-                                // gradient: LinearGradient(
-                                //   colors: [Theme.of(context).primaryColor, Colors.lightBlue],
-                                //   begin: Alignment.topLeft,
-                                //   end: Alignment.bottomRight,
-                                // ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black26,
-                                    blurRadius: 10.0,
-                                    spreadRadius: 2.0,
-                                    offset: Offset(0, 4), 
-                                  ),
-                                ],
-                              ),
+            borderRadius: BorderRadius.circular(20),
+            gradient: const LinearGradient(
+              colors: [Color.fromARGB(197, 66, 6, 96), Color.fromARGB(196, 47, 129, 237)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.9),
+                blurRadius: 10,
+                offset: Offset(0, 4),
+              ),
+            ],
+          ),
+                              // BoxDecoration(
+                              //   color: Colors.white,
+                              //   borderRadius: BorderRadius.all(Radius.circular(20)),
+                              //   // gradient: LinearGradient(
+                              //   //   colors: [Theme.of(context).primaryColor, Colors.lightBlue],
+                              //   //   begin: Alignment.topLeft,
+                              //   //   end: Alignment.bottomRight,
+                              //   // ),
+                              //   boxShadow: [
+                              //     BoxShadow(
+                              //       color: Colors.black26,
+                              //       blurRadius: 10.0,
+                              //       spreadRadius: 2.0,
+                              //       offset: Offset(0, 4), 
+                              //     ),
+                              //   ],
+                              // ),
                               padding: EdgeInsets.all(16.0), 
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -974,7 +991,7 @@ class HomeScreen extends StatelessWidget {
                                     padding: const EdgeInsets.all(10),
                                     child: Row(
                                       children: [
-                                        Text("Orders", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
+                                        Text("Orders", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold,color: Colors.white),),
                                       ],
                                     ),
                                   ),
@@ -988,22 +1005,22 @@ class HomeScreen extends StatelessWidget {
                                       children: [
                                         Column(
                                           children: [
-                                            Text("Today", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
-                                            Text("${ profileController.profileModel?.todaysOrderCount.toString()}", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                                            Text("Today", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Colors.white),),
+                                            Text("${ profileController.profileModel?.todaysOrderCount.toString()}", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Colors.white),),
                                           ],
                                         ),
                                         Column(
                                           children: [
-                                            Text("This Week", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                                            Text("This Week", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Colors.white),),
 
-                                            Text("${ profileController.profileModel?.thisWeekOrderCount.toString()}", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                                            Text("${ profileController.profileModel?.thisWeekOrderCount.toString()}", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Colors.white),),
                                           ],
                                         ),
                                         Column(
                                           children: [
-                                            Text("Total", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                                            Text("Total", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Colors.white),),
 
-                                            Text("${ profileController.profileModel?.orderCount.toString()}", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                                            Text("${ profileController.profileModel?.orderCount.toString()}", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Colors.white),),
                                           ],
                                         ),
                                       ],
@@ -1052,50 +1069,53 @@ class HomeScreen extends StatelessWidget {
                                   Padding(
                                     padding: const EdgeInsets.all(10),
                                     child: Container(
-                                      height: 115,
+                                      height: 170,
                                       width: MediaQuery.of(context).size.width,
                                       padding: const EdgeInsets.all(10),
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-                                        color: Theme.of(context).primaryColor.withOpacity(0.9),
+                                        color: Theme.of(context).primaryColor.withOpacity(1),
                                         border: Border.all(
                                           width: 2,
                                           color: Theme.of(context).primaryColor.withOpacity(0.1),
                                         ),
                                       ),
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-
-                                              Text(
-                                                PriceConverterHelper.convertPrice(profileController.profileModel!.cashInHands!),
-                                                style: PoppinsBold.copyWith(fontSize: 30, color: Theme.of(context).cardColor),
-                                              ),
-
-                                              if (profileController.profileModel!.cashInHands! > 0 &&
-                                                  profileController.profileModel!.earnings == 1)
-                                                CustomButtonWidget(
-                                                  width: 110,
-                                                  height: 40,
-                                                  buttonText: 'view_details'.tr,
-                                                  backgroundColor: Theme.of(context).primaryColor,
-                                                  onPressed: () => Get.toNamed(RouteHelper.getCashInHandRoute()),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                        
+                                                Text(
+                                                  PriceConverterHelper.convertPrice(profileController.profileModel!.cashInHands!),
+                                                  style: PoppinsBold.copyWith(fontSize: 30, color: Theme.of(context).cardColor),
                                                 ),
- 
-                                            ],
-                                          ),
-                                          Text(
-                                            'cash_in_your_hand'.tr,
-                                            style: PoppinsMedium.copyWith(
-                                              fontSize: Dimensions.fontSizeLarge,
-                                              color: Theme.of(context).cardColor,
+                                        
+                                                if (profileController.profileModel!.cashInHands! > 0 &&
+                                                    profileController.profileModel!.earnings == 1)
+                                                  CustomButtonWidget(
+                                                    width: 110,
+                                                    height: 40,
+                                                    buttonText: 'view_details'.tr,
+                                                    backgroundColor: Theme.of(context).cardColor.withOpacity(0.2),
+                                                    onPressed: () => Get.toNamed(RouteHelper.getCashInHandRoute()),
+                                                  ),
+                                         
+                                              ],
                                             ),
-                                          ),
-                                        ],
+                                            Text(
+                                              'cash_in_your_hand'.tr,
+                                              style: PoppinsMedium.copyWith(
+                                                fontSize: Dimensions.fontSizeLarge,
+                                                color: Theme.of(context).cardColor,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   )
@@ -1299,3 +1319,13 @@ class BottomWaveClipper extends CustomClipper<Path> {
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
+
+
+
+
+
+
+
+
+
+

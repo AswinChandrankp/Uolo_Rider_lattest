@@ -24,7 +24,7 @@ class HistoryOrderWidget extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: Dimensions.paddingSizeSmall),
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
-          boxShadow: Get.isDarkMode ? null : [BoxShadow(color: Colors.grey[200]!, spreadRadius: 1, blurRadius: 5)],
+          // boxShadow: Get.isDarkMode ? null : [BoxShadow(color: Colors.grey[200]!, spreadRadius: 1, blurRadius: 5)],
           borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
         ),
         child: Row(children: [
@@ -51,12 +51,12 @@ class HistoryOrderWidget extends StatelessWidget {
               Row(children: [
                 Text(
                   '${parcel ? 'delivery_id'.tr : 'order_id'.tr}:',
-                  style: PoppinsRegular.copyWith(fontSize: Dimensions.fontSizeSmall),
+                  style: PoppinsRegular.copyWith(fontSize: Dimensions.fontSizeDefault,fontWeight: FontWeight.w500, color: Theme.of(context).disabledColor),
                 ),
                 const SizedBox(width: Dimensions.paddingSizeExtraSmall),
                 Expanded(child: Text(
                   '#${orderModel.id}',
-                  style: PoppinsMedium.copyWith(fontSize: Dimensions.fontSizeSmall),
+                  style: PoppinsMedium.copyWith(fontSize: Dimensions.fontSizeDefault,fontWeight: FontWeight.w600,),
                 )),
                 parcel ? Container(
                   padding: const EdgeInsets.all(Dimensions.paddingSizeExtraSmall),
@@ -65,7 +65,7 @@ class HistoryOrderWidget extends StatelessWidget {
                     color: Theme.of(context).primaryColor.withOpacity(0.1),
                   ),
                   child: Text('parcel'.tr, style: PoppinsMedium.copyWith(
-                    fontSize: Dimensions.fontSizeExtraSmall, color: Theme.of(context).primaryColor,
+                    fontSize: Dimensions.fontSizeExtraLarge, color: Theme.of(context).primaryColor,
                   )),
                 ) : const SizedBox(),
               ]),
@@ -73,7 +73,7 @@ class HistoryOrderWidget extends StatelessWidget {
 
               Text(
                 parcel ? orderModel.parcelCategory != null ? orderModel.parcelCategory!.name! : 'no_parcel_category_data_found'.tr : orderModel.storeName ?? 'no_store_data_found'.tr,
-                style: PoppinsMedium.copyWith(fontSize: Dimensions.fontSizeSmall, color: Theme.of(context).primaryColor),
+                style: PoppinsMedium.copyWith(fontSize: Dimensions.fontSizeLarge,fontWeight: FontWeight.w500, color: Theme.of(context).primaryColor),
               ),
               const SizedBox(height: Dimensions.paddingSizeExtraSmall),
 

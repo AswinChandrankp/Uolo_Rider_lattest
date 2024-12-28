@@ -14,7 +14,7 @@ class OrderScreen extends StatelessWidget {
     Get.find<OrderController>().getCompletedOrders(1);
 
     return Scaffold(
-
+backgroundColor: Theme.of(context).primaryColor,
       appBar: CustomAppBarWidget(title: 'my_orders'.tr, isBackButtonExist: false),
 
       body: GetBuilder<OrderController>(builder: (orderController) {

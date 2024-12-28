@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:sixam_mart_delivery/common/widgets/order_widget.dart';
 import 'package:sixam_mart_delivery/features/order/controllers/order_controller.dart';
+import 'package:sixam_mart_delivery/features/order/domain/models/order_model.dart';
 import 'package:sixam_mart_delivery/features/profile/controllers/profile_controller.dart';
 import 'package:sixam_mart_delivery/util/dimensions.dart';
 import 'package:sixam_mart_delivery/common/widgets/custom_app_bar_widget.dart';
@@ -116,6 +117,14 @@ backgroundColor: Theme.of(context).primaryColor ,
             padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
             physics: const AlwaysScrollableScrollPhysics(),
             itemBuilder: (context, index) {
+
+    
+             Future<OrderModel> data=     Get.find<OrderController>().getOrderWithIdeachitem(orderController.currentOrderList![index].id);
+
+             
+ data.then((value) {
+   print(  "  THE DATA IN INDEX $index IS ${value}");
+ });
               return 
               // OrderWidget(
               //                 orderModel: orderController.currentOrderList![index],

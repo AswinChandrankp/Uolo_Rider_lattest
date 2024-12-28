@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:sixam_mart_delivery/features/auth/controllers/auth_controller.dart';
 import 'package:sixam_mart_delivery/features/home/screens/home_screen2.dart';
 import 'package:sixam_mart_delivery/features/order/controllers/order_controller.dart';
@@ -141,22 +142,26 @@ class DashboardScreenState extends State<DashboardScreen> {
         }
       },
       child: Scaffold(
+
         bottomNavigationBar: GetPlatform.isDesktop ? const SizedBox() : BottomAppBar(
+          
           elevation: 5,
           notchMargin: 5,
           shadowColor: Colors.grey[300],
           shape: const CircularNotchedRectangle(),
 
-          child: Padding(
-            padding: const EdgeInsets.all(Dimensions.paddingSizeExtraSmall),
-            child: Row(children: [
-              BottomNavItemWidget(iconData: Icons.home, isSelected: _pageIndex == 0, onTap: () => _setPage(0)),
-              BottomNavItemWidget(iconData: Icons.list_alt_rounded, isSelected: _pageIndex == 1, onTap: () {
-                _navigateRequestPage();
-              }),
-              BottomNavItemWidget(iconData: Icons.shopping_bag, isSelected: _pageIndex == 2, onTap: () => _setPage(2)),
-              BottomNavItemWidget(iconData: Icons.person, isSelected: _pageIndex == 3, onTap: () => _setPage(3)),
-            ]),
+          child: Container(
+            child: Padding(
+              padding: const EdgeInsets.all(0),
+              child: Row(children: [
+                BottomNavItemWidget(iconData: Icons.home, isSelected: _pageIndex == 0, onTap: () => _setPage(0), label: 'Home',),
+                BottomNavItemWidget(iconData: CupertinoIcons.square_list, isSelected: _pageIndex == 1, onTap: () {
+                  _navigateRequestPage();
+                }, label: 'Orders',),
+                BottomNavItemWidget(iconData: Icons.history, isSelected: _pageIndex == 2, onTap: () => _setPage(2), label: 'History',),
+                BottomNavItemWidget(iconData: CupertinoIcons.person, isSelected: _pageIndex == 3, onTap: () => _setPage(3), label: 'Profile',),
+              ]),
+            ),
           ),
         ),
         body: PageView.builder(

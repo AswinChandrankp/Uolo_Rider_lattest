@@ -120,6 +120,20 @@ class OrderController extends GetxController implements GetxService {
     update();
   }
 
+
+   Future <OrderModel> getOrderWithIdeachitem(int? orderId) async {
+    _orderModel = null;
+    Response response = await orderServiceInterface.getOrderWithId(orderId);
+    if(response.statusCode == 200) {
+      _orderModel = OrderModel.fromJson(response.body);
+    }else {
+      Navigator.pop(Get.context!);
+      await Get.find<OrderController>().getCurrentOrders();
+    }
+    update();
+
+    return _orderModel!;
+  }
   Future<void> getCompletedOrders(int offset) async {
     if(offset == 1) {
       _offsetList = [];
