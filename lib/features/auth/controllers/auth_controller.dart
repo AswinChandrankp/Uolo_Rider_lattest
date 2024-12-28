@@ -217,18 +217,18 @@ class AuthController extends GetxController implements GetxService {
 
       if (response.statusCode == 200) {
         var token = response.body['token'];
-        var zoneTopic = response.body['zone_topic'];
+        // var zoneTopic = response.body['zone_topic'];
         var topic = response.body['topic'];
 
         // Log the extracted values
         print("Extracted Token: $token");
-        print("Extracted Zone Topic: $zoneTopic");
+        // print("Extracted Zone Topic: $zoneTopic");
         print("Extracted Topic: $topic");
 
         // Check if token is null
         if (token != null && token is String) {
           print("Login Successfully: ${response.body.toString()}");
-          authServiceInterface.saveUserToken(token, zoneTopic ?? '', topic ?? '');
+          authServiceInterface.saveUserToken(token, topic ?? '', topic ?? '');
           await authServiceInterface.updateToken();
           responseModel = ResponseModel(true, 'successful');
         } else {

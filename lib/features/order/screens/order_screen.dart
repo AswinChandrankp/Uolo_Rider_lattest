@@ -59,7 +59,9 @@ backgroundColor: Theme.of(context).primaryColor,
               ]),
             )),
           ),
-        ) : Center(child: Text('no_order_found'.tr)) : const Center(child: CircularProgressIndicator());
+        ) : Center(child: Text('no_order_found'.tr)) : const Center(child: CircularProgressIndicator(
+          color: Colors.white,
+        ));
       }),
     );
   }

@@ -92,6 +92,7 @@ class CollectMoneyDeliverySheetWidget extends StatelessWidget {
                     if(success) {
                       Get.find<ProfileController>().getProfile();
                       Get.find<OrderController>().getCurrentOrders();
+                      
                       if(!isSenderPay) {
                         Get.offAllNamed(RouteHelper.getInitialRoute());
                       }

@@ -121,19 +121,19 @@ class OrderController extends GetxController implements GetxService {
   }
 
 
-   Future <OrderModel> getOrderWithIdeachitem(int? orderId) async {
-    _orderModel = null;
-    Response response = await orderServiceInterface.getOrderWithId(orderId);
-    if(response.statusCode == 200) {
-      _orderModel = OrderModel.fromJson(response.body);
-    }else {
-      Navigator.pop(Get.context!);
-      await Get.find<OrderController>().getCurrentOrders();
-    }
-    update();
+  //  Future <OrderModel> getOrderWithIdeachitem(int? orderId) async {
+  //   _orderModel = null;
+  //   Response response = await orderServiceInterface.getOrderWithId(orderId);
+  //   if(response.statusCode == 200) {
+  //     _orderModel = OrderModel.fromJson(response.body);
+  //   }else {
+  //     Navigator.pop(Get.context!);
+  //     await Get.find<OrderController>().getCurrentOrders();
+  //   }
+  //   update();
 
-    return _orderModel!;
-  }
+  //   return _orderModel!;
+  // }
   Future<void> getCompletedOrders(int offset) async {
     if(offset == 1) {
       _offsetList = [];
@@ -231,6 +231,25 @@ class OrderController extends GetxController implements GetxService {
       update();
     }
   }
+
+  Future<OrderDetailsModel> getOrderDetailseachitem(int? orderID,) async {
+    // if(parcel) {
+    //   _orderDetailsModel = [];
+    // }
+    
+    // if {
+      _orderDetailsModel = null;
+      List<OrderDetailsModel>? orderDetailsModel = await orderServiceInterface.getOrderDetails(orderID);
+      if(orderDetailsModel != null) {
+        _orderDetailsModel = [];
+        _orderDetailsModel!.addAll(orderDetailsModel);
+      // }
+      update();
+    
+    }
+      return _orderDetailsModel![0];
+  }
+
 
   Future<bool> acceptOrder(int? orderID, int index, OrderModel orderModel) async {
     _isLoading = true;

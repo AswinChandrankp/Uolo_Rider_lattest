@@ -31,7 +31,9 @@ Future<void> main() async {
   setPathUrlStrategy();
   WidgetsFlutterBinding.ensureInitialized();
 
+
   if(GetPlatform.isAndroid) {
+    
     await Firebase.initializeApp(
       options: const FirebaseOptions(
          apiKey: "AIzaSyBsKYkb4r9kQjiWIHMcHX8XQ9RGtpiUuf4", 
@@ -44,6 +46,7 @@ Future<void> main() async {
   }else {
     await Firebase.initializeApp();
   }
+
 
   Map<String, Map<String, String>> languages = await di.init();
 

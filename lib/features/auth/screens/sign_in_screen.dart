@@ -356,8 +356,11 @@ class _SignInScreenState extends State<SignInScreen> {
           await Get.find<ProfileController>().getProfile();
           Get.offAllNamed(RouteHelper.getInitialRoute());
           print(status.message);
-          showCustomSnackBar(status.message);
+          // showCustomSnackBar(status.message);
         } else {
+
+         
+         
           print(status.message);
           showCustomSnackBar(status.message);
         }

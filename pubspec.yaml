@@ -45,6 +45,7 @@ dependencies:
   flutter_inappwebview: ^6.0.0
   just_the_tooltip: ^0.0.12
   flutter_svg: ^2.0.10+1
+  lottie: ^3.2.0
 
 dependency_overrides:
   collection: ^1.19.0
@@ -62,6 +63,9 @@ flutter:
     - assets/image/
     - assets/language/
     - assets/notification.Wav
+    - assets/animations/Animation - 1735370689159.json
+    - assets/animations/Animation - 1735372247407.json
+    - assets/success-1-6297.mp3
 
   # fonts:
   #   - family: Poppins

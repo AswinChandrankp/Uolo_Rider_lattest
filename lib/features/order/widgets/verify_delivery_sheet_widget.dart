@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:sixam_mart_delivery/features/notification/controllers/notification_controller.dart';
 import 'package:sixam_mart_delivery/features/order/controllers/order_controller.dart';
 import 'package:sixam_mart_delivery/features/order/domain/models/order_model.dart';
+import 'package:sixam_mart_delivery/features/order/widgets/OrderCompleateddialog.dart';
 import 'package:sixam_mart_delivery/features/profile/controllers/profile_controller.dart';
 import 'package:sixam_mart_delivery/helper/price_converter_helper.dart';
 import 'package:sixam_mart_delivery/helper/route_helper.dart';
@@ -159,15 +160,40 @@ class _VerifyDeliverySheetWidgetState extends State<VerifyDeliverySheetWidget> {
                    } else {
                      Get.find<OrderController>().updateOrderStatus(widget.currentOrderModel, widget.isSenderPay ? 'picked_up' : 'delivered', parcel: widget.isParcel).then((success) {
                        if(success) {
+                                         showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return  DeliveryBoyCongratulationDialogue(
+          deliveryCharge:widget.currentOrderModel.deliveryCharge! + widget.currentOrderModel.dmTips!.toDouble() ,
+        );
+      },
+    );
                          Get.find<OrderController>().getOrderWithId(widget.currentOrderModel.id);
                          Get.find<ProfileController>().getProfile();
                          Get.find<OrderController>().getCurrentOrders();
+              
                        }
                      });
                    }
                 } else{
                   Get.find<OrderController>().updateOrderStatus(widget.currentOrderModel, widget.isSenderPay ? 'picked_up' : 'delivered', parcel: widget.isParcel).then((success) {
                     if(success) {
+    //                   showDialog(
+    //   context: context,
+    //   builder: (BuildContext context) {
+    //     return  DeliveryBoyCongratulationDialogue(
+    //       deliveryCharge: 50,
+    //     );
+    //   },
+    // );
+                     showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return  DeliveryBoyCongratulationDialogue(
+           deliveryCharge:widget.currentOrderModel.deliveryCharge! + widget.currentOrderModel.dmTips!.toDouble() ,
+        );
+      },
+    );
                       Get.find<ProfileController>().getProfile();
                       Get.find<OrderController>().getCurrentOrders();
                       if(!widget.isSenderPay) {

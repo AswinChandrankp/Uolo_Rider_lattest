@@ -119,12 +119,12 @@ backgroundColor: Theme.of(context).primaryColor ,
             itemBuilder: (context, index) {
 
     
-             Future<OrderModel> data=     Get.find<OrderController>().getOrderWithIdeachitem(orderController.currentOrderList![index].id);
+//              Future<OrderModel> data=     Get.find<OrderController>().getOrderWithIdeachitem(orderController.currentOrderList![index].id);
 
              
- data.then((value) {
-   print(  "  THE DATA IN INDEX $index IS ${value}");
- });
+//  data.then((value) {
+//    print(  "  THE DATA IN INDEX $index IS ${value}");
+//  });
               return 
               // OrderWidget(
               //                 orderModel: orderController.currentOrderList![index],
@@ -138,7 +138,9 @@ backgroundColor: Theme.of(context).primaryColor ,
         ) : Center(child: Text('NO ACTIVE ORDERS',style: TextStyle(
           color: Colors.white,
           fontSize: 20,
-        ),)) : const Center(child: CircularProgressIndicator());
+        ),)) : const Center(child: CircularProgressIndicator(
+          color: Colors.white,
+        ));
       }),
     );
   }

@@ -68,6 +68,8 @@ class HistoryOrderWidget extends StatelessWidget {
                     fontSize: Dimensions.fontSizeExtraLarge, color: Theme.of(context).primaryColor,
                   )),
                 ) : const SizedBox(),
+
+                Text("₹ ${orderModel.deliveryCharge! + orderModel.dmTips!.toDouble()}", style: PoppinsRegular.copyWith(fontSize: Dimensions.fontSizeExtraLarge,fontWeight: FontWeight.w600, color: Theme.of(context).primaryColor),),
               ]),
               const SizedBox(height: Dimensions.paddingSizeExtraSmall),
 

@@ -416,12 +416,16 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with WidgetsBin
                     ) : Container(
 
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('items'.tr, style: TextStyle(
-                            color: Theme.of(context).disabledColor,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600
-                          )),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('Items :'.tr, style: TextStyle(
+                              color: Theme.of(context).disabledColor,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500
+                            )),
+                          ),
                           ListView.builder(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),

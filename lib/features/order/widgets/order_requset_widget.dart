@@ -4,6 +4,7 @@ import 'package:sixam_mart_delivery/features/chat/domain/models/conversation_mod
 import 'package:sixam_mart_delivery/features/notification/domain/models/notification_body_model.dart';
 import 'package:sixam_mart_delivery/features/order/controllers/order_controller.dart';
 import 'package:sixam_mart_delivery/features/address/controllers/address_controller.dart';
+import 'package:sixam_mart_delivery/features/order/domain/models/order_details_model.dart';
 import 'package:sixam_mart_delivery/features/profile/controllers/profile_controller.dart';
 import 'package:sixam_mart_delivery/features/splash/controllers/splash_controller.dart';
 import 'package:sixam_mart_delivery/features/order/domain/models/order_model.dart';
@@ -288,7 +289,7 @@ class OrderRequestWidget2 extends StatelessWidget {
 
 
 
-class OrderWidget2 extends StatelessWidget {
+class OrderWidget2 extends StatefulWidget {
   final OrderModel orderModel;
   final int index;
   final bool fromDetailsPage;
@@ -296,16 +297,121 @@ class OrderWidget2 extends StatelessWidget {
   const OrderWidget2({super.key, required this.orderModel, required this.index, required this.onTap, this.fromDetailsPage = false});
 
   @override
+  State<OrderWidget2> createState() => _OrderWidget2State();
+}
+  
+class _OrderWidget2State extends State<OrderWidget2> {
+
+
+ double? deliveryCharge = 0;
+              double itemsPrice = 0;
+              double? discount = 0;
+              double? couponDiscount = 0;
+              double? tax = 0;
+              double addOns = 0;
+              double? dmTips = 0;
+              double additionalCharge = 0;
+              double extraPackagingAmount = 0;
+              double referrerBonusAmount = 0;
+              bool? isPrescriptionOrder = false;
+              bool? taxIncluded = false;
+              bool showChatPermission = true;
+               double subTotal = 0;
+               double  total = 0;
+
+
+   @override
+  void initState() {
+    super.initState();
+
+    Future<OrderDetailsModel> data = Get.find<OrderController>().getOrderDetailseachitem(widget.orderModel.id);
+
+//     data.then((value) {
+//       print("THE DATA IN order id ${value.id} IS ${value}");
+
+//  deliveryCharge = widget.orderModel.deliveryCharge;
+   
+//        dmTips = widget.orderModel.dmTips;
+//        isPrescriptionOrder = widget.orderModel.prescriptionOrder;
+//        discount = widget.orderModel.storeDiscountAmount! + widget.orderModel.flashAdminDiscountAmount! + widget.orderModel.flashStoreDiscountAmount!;
+//        tax = widget.orderModel.totalTaxAmount;
+//        taxIncluded = widget.orderModel.taxStatus;
+//        additionalCharge = widget.orderModel.additionalCharge!;
+//        extraPackagingAmount = widget.orderModel.extraPackagingAmount!;
+//        referrerBonusAmount = widget.orderModel.referrerBonusAmount!;
+//        couponDiscount = widget.orderModel.couponDiscountAmount;
+  
+
+//        if(isPrescriptionOrder!){
+//                   double orderAmount = widget.orderModel.orderAmount ?? 0;
+//                   itemsPrice = (orderAmount + discount!) - ((taxIncluded! ? 0 : tax!) + deliveryCharge! + additionalCharge) - dmTips!;
+//                 }else {
+//                   // for (OrderDetailsModel orderDetails in value.) {
+//                     for (AddOn addOn in value.addOns!) {
+//                       addOns = addOns + (addOn.price! * addOn.quantity!);
+//                     }
+//                     itemsPrice = itemsPrice + (value.price! * value.quantity!);
+//                   }
+
+//        double subTotal = itemsPrice + addOns;
+//               double total = itemsPrice + addOns - discount!+ (taxIncluded! ? 0 : tax!) + deliveryCharge! - couponDiscount! + dmTips! + additionalCharge + extraPackagingAmount - referrerBonusAmount;
+
+    
+//      print("---------------------------------------------------THE TOTAL IS ${total}-----------------------------------------------------------------------");
+
+//      setState(() {
+//         double total = itemsPrice + addOns - discount!+ (taxIncluded! ? 0 : tax!) + deliveryCharge! - couponDiscount! + dmTips! + additionalCharge + extraPackagingAmount - referrerBonusAmount;
+//      });
+//     });
+ 
+ data.then((value) {
+  print("THE DATA IN order id ${value.id} IS ${value}");
+
+  deliveryCharge = widget.orderModel.deliveryCharge;
+  dmTips = widget.orderModel.dmTips;
+  isPrescriptionOrder = widget.orderModel.prescriptionOrder;
+  discount = widget.orderModel.storeDiscountAmount! + widget.orderModel.flashAdminDiscountAmount! + widget.orderModel.flashStoreDiscountAmount!;
+  tax = widget.orderModel.totalTaxAmount;
+  taxIncluded = widget.orderModel.taxStatus;
+  additionalCharge = widget.orderModel.additionalCharge!;
+  extraPackagingAmount = widget.orderModel.extraPackagingAmount!;
+  referrerBonusAmount = widget.orderModel.referrerBonusAmount!;
+  couponDiscount = widget.orderModel.couponDiscountAmount;
+
+  if (isPrescriptionOrder!) {
+    double orderAmount = widget.orderModel.orderAmount ?? 0;
+    itemsPrice = (orderAmount + discount!) - ((taxIncluded! ? 0 : tax!) + deliveryCharge! + additionalCharge) - dmTips!;
+  } else {
+    for (AddOn addOn in value.addOns!) {
+      addOns = addOns + (addOn.price! * addOn.quantity!);
+    }
+    itemsPrice = itemsPrice + (value.price! * value.quantity!);
+  }
+
+  subTotal = itemsPrice + addOns; 
+  total = itemsPrice + addOns - discount! + (taxIncluded! ? 0 : tax!) + deliveryCharge! - couponDiscount! + dmTips! + additionalCharge + extraPackagingAmount - referrerBonusAmount;
+
+  print("---------------------------------------------------THE TOTAL IS ${total}-----------------------------------------------------------------------");
+
+  setState(() {
+
+  });
+});
+  }
+
+
+
+
+  @override
   Widget build(BuildContext context) {
-    bool parcel = orderModel.orderType == 'parcel';
+    bool parcel = widget.orderModel.orderType == 'parcel';
     double distance = Get.find<AddressController>().getRestaurantDistance(
-      LatLng(double.parse(parcel ? orderModel.deliveryAddress?.latitude ?? '0' : orderModel.storeLat ?? '0'), double.parse(parcel ? orderModel.deliveryAddress?.longitude ?? '0' : orderModel.storeLng ?? '0')),
+      LatLng(double.parse(parcel ? widget.orderModel.deliveryAddress?.latitude ?? '0' : widget.orderModel.storeLat ?? '0'), double.parse(parcel ? widget.orderModel.deliveryAddress?.longitude ?? '0' : widget.orderModel.storeLng ?? '0')),
     );
       
-
       
     return InkWell(
-      onTap: () => Get.toNamed(RouteHelper.getOrderDetailsRoute(orderModel.id), arguments: OrderDetailsScreen(orderId: orderModel.id, isRunningOrder: true, orderIndex: index)),
+      onTap: () => Get.toNamed(RouteHelper.getOrderDetailsRoute(widget.orderModel.id), arguments: OrderDetailsScreen(orderId: widget.orderModel.id, isRunningOrder: true, orderIndex: widget.index)),
       child: Container(
         margin: const EdgeInsets.only(bottom: Dimensions.paddingSizeSmall),
         decoration: BoxDecoration(
@@ -330,7 +436,7 @@ class OrderWidget2 extends StatelessWidget {
                                    Column(
                                     crossAxisAlignment: CrossAxisAlignment.start ,
                                      children: [
-                                      Text("ORDER ID : ${orderModel.id}",style: TextStyle(
+                                      Text("ORDER ID : ${widget.orderModel.id}",style: TextStyle(
                                         fontWeight:  FontWeight.bold
                                       ),),
                                        Text("${distance > 1000 ? '1000+' : distance.toStringAsFixed(2)} ${'Km To Pickup Point'.tr}",style: TextStyle(
@@ -349,7 +455,9 @@ class OrderWidget2 extends StatelessWidget {
                                                     
                                     (Get.find<SplashController>().configModel!.showDmEarning! && Get.find<ProfileController>().profileModel != null
                                                      && Get.find<ProfileController>().profileModel!.earnings == 1) ? Text(
-                                                   PriceConverterHelper.convertPrice(orderModel.originalDeliveryCharge! + orderModel.dmTips!),
+                                                  //  PriceConverterHelper.convertPrice(widget.orderModel.originalDeliveryCharge! + widget.orderModel.dmTips!),
+
+                                                  total.toString(),
                                                    style: PoppinsBold.copyWith(fontSize: Dimensions.fontSizeLarge),
                                                  ) : const SizedBox(),
       
@@ -360,7 +468,7 @@ class OrderWidget2 extends StatelessWidget {
                       ),
                       padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall, vertical: Dimensions.paddingSizeExtraSmall),
                       child: Text(
-                        '${'payment'.tr} - ${orderModel.paymentMethod == 'cash_on_delivery' ? 'cod'.tr : orderModel.paymentMethod == 'wallet' ? 'wallet'.tr : 'digitally_paid'.tr}',
+                        '${'payment'.tr} - ${widget.orderModel.paymentMethod == 'cash_on_delivery' ? 'cod'.tr : widget.orderModel.paymentMethod == 'wallet' ? 'wallet'.tr : 'digitally_paid'.tr}',
                         style: PoppinsMedium.copyWith(fontSize: Dimensions.fontSizeExtraSmall, color: Theme.of(context).disabledColor),
                       ),
                     ),
@@ -380,7 +488,7 @@ class OrderWidget2 extends StatelessWidget {
                       color: Theme.of(context).primaryColor.withOpacity(0.2),
                     ) : null,
                     child: ClipRRect(borderRadius: BorderRadius.circular(100), child: CustomImageWidget(
-                      image: parcel ? '${orderModel.parcelCategory != null ? orderModel.parcelCategory!.imageFullUrl : ''}' : orderModel.storeLogoFullUrl ?? '',
+                      image: parcel ? '${widget.orderModel.parcelCategory != null ? widget.orderModel.parcelCategory!.imageFullUrl : ''}' : widget.orderModel.storeLogoFullUrl ?? '',
                       height: parcel ? 30 : 45, width: parcel ? 30 : 45, fit: BoxFit.cover,
                     )),
                   ),
@@ -408,10 +516,10 @@ class OrderWidget2 extends StatelessWidget {
                             ) ),
                             TextSpan(
                               text: parcel 
-                                ? (orderModel.parcelCategory != null 
-                                    ? orderModel.parcelCategory!.name ?? '' 
+                                ? (widget.orderModel.parcelCategory != null 
+                                    ? widget.orderModel.parcelCategory!.name ?? '' 
                                     : '') 
-                                : (orderModel.storeName ?? 'no_store_data_found'.tr),
+                                : (widget.orderModel.storeName ?? 'no_store_data_found'.tr),
                               style: PoppinsMedium.copyWith(fontSize: Dimensions.fontSizeSmall), // Style for the main text
                             ),
                             // You can add more TextSpan widgets here for additional styling if needed
@@ -421,13 +529,13 @@ class OrderWidget2 extends StatelessWidget {
                         const SizedBox(height: Dimensions.paddingSizeExtraSmall),
                       
                         Text(
-                          parcel ? 'parcel'.tr : '${orderModel.detailsCount} ${orderModel.detailsCount! > 1 ? 'items'.tr : 'item'.tr}',
+                          parcel ? 'parcel'.tr : '${widget.orderModel.detailsCount} ${widget.orderModel.detailsCount! > 1 ? 'items'.tr : 'item'.tr}',
                           style: PoppinsMedium.copyWith(fontSize: Dimensions.fontSizeSmall, color: Theme.of(context).primaryColor),
                         ),
                         const SizedBox(height: Dimensions.paddingSizeExtraSmall),
                       
                         Text(
-                          parcel ? orderModel.parcelCategory != null ? orderModel.parcelCategory!.description ?? '' : '' : orderModel.storeAddress ?? '', maxLines: 1, overflow: TextOverflow.ellipsis,
+                          parcel ? widget.orderModel.parcelCategory != null ? widget.orderModel.parcelCategory!.description ?? '' : '' : widget.orderModel.storeAddress ?? '', maxLines: 1, overflow: TextOverflow.ellipsis,
                           style: PoppinsRegular.copyWith(fontSize: Dimensions.fontSizeSmall, color: Theme.of(context).disabledColor),
                         ),
       
@@ -439,7 +547,7 @@ class OrderWidget2 extends StatelessWidget {
                                                      padding: const EdgeInsets.all(5),
                                                      child: Image.asset("assets/image/phone.png",height: 25,),
                                                    ), onTap: () async {
-                                                     final phone = parcel ? orderModel.deliveryAddress!.contactPersonNumber : orderModel.storePhone;
+                                                     final phone = parcel ? widget.orderModel.deliveryAddress!.contactPersonNumber : widget.orderModel.storePhone;
                                           if(await canLaunchUrlString('tel:$phone')) {
                                                 launchUrlString('tel:$phone', mode: LaunchMode.externalApplication);
                                               }else {
@@ -457,11 +565,11 @@ class OrderWidget2 extends StatelessWidget {
                        ),onTap: () {
                          Get.toNamed(RouteHelper.getChatRoute(
                           notificationBody: NotificationBodyModel(
-                            orderId: orderModel.id, vendorId: orderController.orderDetailsModel![0].vendorId,
+                            orderId: widget.orderModel.id, vendorId: orderController.orderDetailsModel![0].vendorId,
                           ),
                           user: User(
-                            id: orderModel.storeId, fName: orderModel.storeName,
-                            imageFullUrl: orderModel.storeLogoFullUrl,
+                            id: widget.orderModel.storeId, fName: widget.orderModel.storeName,
+                            imageFullUrl: widget.orderModel.storeLogoFullUrl,
                           ),
                         ));
                        },),
@@ -503,21 +611,21 @@ class OrderWidget2 extends StatelessWidget {
                   //   ),
                   // ]),
       
-                    (parcel || orderModel.orderStatus != 'picked_up') ?   InkWell(
+                    (parcel || widget.orderModel.orderStatus != 'picked_up') ?   InkWell(
                     onTap: () async {
                        String url;
-                if(parcel && (orderModel.orderStatus == 'picked_up')) {
-                  url = 'https://www.google.com/maps/dir/?api=1&destination=${orderModel.receiverDetails!.latitude}'
-                      ',${orderModel.receiverDetails!.longitude}&mode=d';
+                if(parcel && (widget.orderModel.orderStatus == 'picked_up')) {
+                  url = 'https://www.google.com/maps/dir/?api=1&destination=${widget.orderModel.receiverDetails!.latitude}'
+                      ',${widget.orderModel.receiverDetails!.longitude}&mode=d';
                 }else if(parcel) {
-                  url = 'https://www.google.com/maps/dir/?api=1&destination=${orderModel.deliveryAddress!.latitude}'
-                      ',${orderModel.deliveryAddress!.longitude}&mode=d';
-                }else if(orderModel.orderStatus == 'picked_up') {
-                  url = 'https://www.google.com/maps/dir/?api=1&destination=${orderModel.deliveryAddress!.latitude}'
-                      ',${orderModel.deliveryAddress!.longitude}&mode=d';
+                  url = 'https://www.google.com/maps/dir/?api=1&destination=${widget.orderModel.deliveryAddress!.latitude}'
+                      ',${widget.orderModel.deliveryAddress!.longitude}&mode=d';
+                }else if(widget.orderModel.orderStatus == 'picked_up') {
+                  url = 'https://www.google.com/maps/dir/?api=1&destination=${widget.orderModel.deliveryAddress!.latitude}'
+                      ',${widget.orderModel.deliveryAddress!.longitude}&mode=d';
                 }else {
-                  url = 'https://www.google.com/maps/dir/?api=1&destination=${orderModel.storeLat ?? '0'}'
-                      ',${orderModel.storeLng ?? '0'}&mode=d';
+                  url = 'https://www.google.com/maps/dir/?api=1&destination=${widget.orderModel.storeLat ?? '0'}'
+                      ',${widget.orderModel.storeLng ?? '0'}&mode=d';
                 }
                 if (await canLaunchUrlString(url)) {
                   await launchUrlString(url, mode: LaunchMode.externalApplication);
@@ -586,11 +694,11 @@ class OrderWidget2 extends StatelessWidget {
                         ),
                         const SizedBox(height: Dimensions.paddingSizeExtraSmall),
                          Text(
-                          parcel ? orderModel.receiverDetails?.contactPersonName ?? '' : orderModel.deliveryAddress?.contactPersonName ?? '', maxLines: 1, overflow: TextOverflow.ellipsis,
+                          parcel ? widget.orderModel.receiverDetails?.contactPersonName ?? '' : widget.orderModel.deliveryAddress?.contactPersonName ?? '', maxLines: 1, overflow: TextOverflow.ellipsis,
                           style: PoppinsRegular.copyWith(fontSize: Dimensions.fontSizeSmall, color: Theme.of(context).disabledColor),
                         ),
                         Text(
-                          parcel ? orderModel.receiverDetails?.address ?? '' : orderModel.deliveryAddress?.address ?? '', maxLines: 1, overflow: TextOverflow.ellipsis,
+                          parcel ? widget.orderModel.receiverDetails?.address ?? '' : widget.orderModel.deliveryAddress?.address ?? '', maxLines: 1, overflow: TextOverflow.ellipsis,
                           style: PoppinsRegular.copyWith(fontSize: Dimensions.fontSizeSmall, color: Theme.of(context).disabledColor),
                         ),
                       
@@ -619,7 +727,7 @@ class OrderWidget2 extends StatelessWidget {
                                                      padding: const EdgeInsets.all(5.0),
                                                      child: Image.asset("assets/image/phone.png",height: 25,),
                                                    ), onTap: () async {
-                                                     final phone = parcel ? orderModel.receiverDetails!.contactPersonNumber : orderModel.deliveryAddress!.contactPersonNumber;
+                                                     final phone = parcel ? widget.orderModel.receiverDetails!.contactPersonNumber : widget.orderModel.deliveryAddress!.contactPersonNumber;
                                           if(await canLaunchUrlString('tel:$phone')) {
                                                 launchUrlString('tel:$phone', mode: LaunchMode.externalApplication);
                                               }else {
@@ -637,11 +745,11 @@ class OrderWidget2 extends StatelessWidget {
                        ),onTap: () {
                          Get.toNamed(RouteHelper.getChatRoute(
                           notificationBody: NotificationBodyModel(
-                            orderId: orderModel.id, customerId: orderModel.customer!.id,
+                            orderId: widget.orderModel.id, customerId: widget.orderModel.customer!.id,
                           ),
                           user: User(
-                            id: orderModel.customer!.id, fName: orderModel.customer!.fName,
-                            lName: orderModel.customer!.lName, imageFullUrl: orderModel.customer!.imageFullUrl,
+                            id: widget.orderModel.customer!.id, fName: widget.orderModel.customer!.fName,
+                            lName: widget.orderModel.customer!.lName, imageFullUrl: widget.orderModel.customer!.imageFullUrl,
                           ),
                         ));
                        },),
@@ -663,21 +771,21 @@ class OrderWidget2 extends StatelessWidget {
             // }, icon: Image.asset("assets/image/message.png"))
       
       
-                (parcel || orderModel.orderStatus == 'picked_up') ?   InkWell(
+                (parcel || widget.orderModel.orderStatus == 'picked_up') ?   InkWell(
                     onTap: () async {
                        String url;
-                if(parcel && (orderModel.orderStatus == 'picked_up')) {
-                  url = 'https://www.google.com/maps/dir/?api=1&destination=${orderModel.receiverDetails!.latitude}'
-                      ',${orderModel.receiverDetails!.longitude}&mode=d';
+                if(parcel && (widget.orderModel.orderStatus == 'picked_up')) {
+                  url = 'https://www.google.com/maps/dir/?api=1&destination=${widget.orderModel.receiverDetails!.latitude}'
+                      ',${widget.orderModel.receiverDetails!.longitude}&mode=d';
                 }else if(parcel) {
-                  url = 'https://www.google.com/maps/dir/?api=1&destination=${orderModel.deliveryAddress!.latitude}'
-                      ',${orderModel.deliveryAddress!.longitude}&mode=d';
-                }else if(orderModel.orderStatus == 'picked_up') {
-                  url = 'https://www.google.com/maps/dir/?api=1&destination=${orderModel.deliveryAddress!.latitude}'
-                      ',${orderModel.deliveryAddress!.longitude}&mode=d';
+                  url = 'https://www.google.com/maps/dir/?api=1&destination=${widget.orderModel.deliveryAddress!.latitude}'
+                      ',${widget.orderModel.deliveryAddress!.longitude}&mode=d';
+                }else if(widget.orderModel.orderStatus == 'picked_up') {
+                  url = 'https://www.google.com/maps/dir/?api=1&destination=${widget.orderModel.deliveryAddress!.latitude}'
+                      ',${widget.orderModel.deliveryAddress!.longitude}&mode=d';
                 }else {
-                  url = 'https://www.google.com/maps/dir/?api=1&destination=${orderModel.storeLat ?? '0'}'
-                      ',${orderModel.storeLng ?? '0'}&mode=d';
+                  url = 'https://www.google.com/maps/dir/?api=1&destination=${widget.orderModel.storeLat ?? '0'}'
+                      ',${widget.orderModel.storeLng ?? '0'}&mode=d';
                 }
                 if (await canLaunchUrlString(url)) {
                   await launchUrlString(url, mode: LaunchMode.externalApplication);
@@ -786,8 +894,8 @@ class OrderWidget2 extends StatelessWidget {
                       buttonText: "details".tr,
               onPressed: () {
                 Get.toNamed(
-                  RouteHelper.getOrderDetailsRoute(orderModel.id),
-                  arguments: OrderDetailsScreen(orderId: orderModel.id, isRunningOrder: true, orderIndex: index),
+                  RouteHelper.getOrderDetailsRoute(widget.orderModel.id),
+                  arguments: OrderDetailsScreen(orderId: widget.orderModel.id, isRunningOrder: true, orderIndex: widget.index),
                 );
               },
               // style: TextButton.styleFrom(minimumSize: const Size(1170, 45), padding: EdgeInsets.zero, shape: RoundedRectangleBorder(
