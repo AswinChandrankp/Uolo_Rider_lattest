@@ -13,9 +13,9 @@ class ProfileCardWidget extends StatelessWidget {
     return Expanded(child: Container(
       height: 100,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+        borderRadius: BorderRadius.circular(Dimensions.radiusSmall + 10),
         color: Theme.of(context).cardColor,
-        boxShadow: [BoxShadow(color: Colors.grey[Get.isDarkMode ? 850 : 200]!, blurRadius: 5, spreadRadius: 1)],
+        // boxShadow: [BoxShadow(color: Colors.grey[Get.isDarkMode ? 850 : 200]!, blurRadius: 5, spreadRadius: 1)],
       ),
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         Text(data, style: PoppinsMedium.copyWith(

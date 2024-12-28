@@ -17,32 +17,35 @@ class ProfileButtonWidget extends StatelessWidget {
       onTap: onTap as void Function()?,
       child: Container(
         padding: EdgeInsets.symmetric(
-          horizontal: Dimensions.paddingSizeSmall,
+          horizontal: Dimensions.paddingSizeDefault,
           vertical: isButtonActive != null ? Dimensions.paddingSizeExtraSmall : Dimensions.paddingSizeDefault,
         ),
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
-          borderRadius: BorderRadius.circular(5),
-          boxShadow: [BoxShadow(color: Colors.grey[Get.isDarkMode ? 850 : 200]!, spreadRadius: 1, blurRadius: 5)],
+          borderRadius: BorderRadius.circular(15),
+          // boxShadow: [BoxShadow(color: Colors.grey[Get.isDarkMode ? 850 : 200]!, spreadRadius: 1, blurRadius: 5)],
         ),
-        child: Row(children: [
-
-          Icon(icon, size: 25),
-          const SizedBox(width: Dimensions.paddingSizeSmall),
-
-          Expanded(child: Text(title, style: PoppinsRegular)),
-
-          isButtonActive != null ? Transform.scale(
-            scale: 0.7,
-            child: CupertinoSwitch(
-              value: isButtonActive!,
-              onChanged: (bool? value) => onTap(),
-              activeColor: Theme.of(context).primaryColor,
-              trackColor: Theme.of(context).primaryColor.withOpacity(0.5),
-            ),
-          ) : const SizedBox(),
-
-        ]),
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Row(children: [
+          
+            Icon(icon, size: 25),
+            const SizedBox(width: Dimensions.paddingSizeSmall),
+          
+            Expanded(child: Text(title, style: PoppinsRegular)),
+          
+            isButtonActive != null ? Transform.scale(
+              scale: 0.7,
+              child: CupertinoSwitch(
+                value: isButtonActive!,
+                onChanged: (bool? value) => onTap(),
+                activeColor: Theme.of(context).primaryColor,
+                trackColor: Theme.of(context).primaryColor.withOpacity(0.5),
+              ),
+            ) : const SizedBox(),
+          
+          ]),
+        ),
       ),
     );
   }

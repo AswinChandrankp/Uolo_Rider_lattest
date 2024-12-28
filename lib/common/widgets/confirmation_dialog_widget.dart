@@ -6,28 +6,28 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ConfirmationDialogWidget extends StatelessWidget {
-  final String icon;
+  final String? icon;
   final double iconSize;
   final String? title;
   final String description;
   final Function onYesPressed;
   final bool isLogOut;
   final bool hasCancel;
-  const ConfirmationDialogWidget({super.key, required this.icon, this.iconSize = 50, this.title, required this.description, required this.onYesPressed,
+  const ConfirmationDialogWidget({super.key,  this.icon, this.iconSize = 50, this.title, required this.description, required this.onYesPressed,
     this.isLogOut = false, this.hasCancel = true});
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Dimensions.radiusSmall)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular  (    30 )),
       child: Padding(
-        padding: const EdgeInsets.all(Dimensions.paddingSizeLarge),
+        padding:  EdgeInsets.all(  icon == null ? 50 :Dimensions.paddingSizeLarge  ),
         child: Column(mainAxisSize: MainAxisSize.min, children: [
 
-          Padding(
-            padding: const EdgeInsets.all(Dimensions.paddingSizeLarge),
-            child: Image.asset(icon, width: iconSize, height: iconSize),
-          ),
+        icon != null ?   Padding(
+            padding:  EdgeInsets.all(Dimensions.paddingSizeLarge),
+            child: Image.asset(icon ?? "" , width: iconSize, height: iconSize),
+          ) : const SizedBox(),
 
           title != null ? Padding(
             padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeLarge),

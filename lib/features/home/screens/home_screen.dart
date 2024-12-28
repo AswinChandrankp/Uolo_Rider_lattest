@@ -847,7 +847,8 @@ class HomeScreen extends StatelessWidget {
                   }else {
                     if(!isActive) {
                       Get.dialog(ConfirmationDialogWidget(
-                        icon: Images.warning, description: 'are_you_sure_to_offline'.tr,
+                        // icon: '', 
+                        description: 'are_you_sure_to_offline'.tr,
                         onYesPressed: () {
                           Get.back();
                           profileController.updateActiveStatus();

@@ -38,29 +38,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).cardColor,
+      backgroundColor: Theme.of(context).primaryColor,
       body: GetBuilder<ProfileController>(builder: (profileController) {
-        return profileController.profileModel == null ? const Center(child: CircularProgressIndicator()) : ProfileBgWidget(
-          backButton: false,
-          circularImage: Container(
-            decoration: BoxDecoration(
-              border: Border.all(width: 2, color: Theme.of(context).cardColor),
-              shape: BoxShape.circle,
-            ),
-            alignment: Alignment.center,
-            child: ClipOval(child: CustomImageWidget(
-              image: '${profileController.profileModel != null ? profileController.profileModel!.imageFullUrl : ''}',
-              height: 100, width: 100, fit: BoxFit.cover,
-            )),
-          ),
-          mainWidget: SingleChildScrollView(physics: const BouncingScrollPhysics(), child: Center(child: Container(
-            width: 1170, color: Theme.of(context).cardColor,
+        return profileController.profileModel == null ? const Center(child: CircularProgressIndicator()) :
+         SingleChildScrollView(physics: const BouncingScrollPhysics(), child: Center(child: Container(
+            width: 1170, color: Theme.of(context).primaryColor,
             padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
             child: Column(children: [
-
-              Text(
-                '${profileController.profileModel!.fName} ${profileController.profileModel!.lName}',
-                style: PoppinsMedium.copyWith(fontSize: Dimensions.fontSizeLarge),
+                SizedBox(height: 30,),
+              Row(
+                
+                children: [
+                  ClipOval(child: CustomImageWidget(
+              image: '${profileController.profileModel != null ? profileController.profileModel!.imageFullUrl : ''}',
+              height: 80, width: 80, fit: BoxFit.cover,
+            )),
+               SizedBox(width: 20) ,  Text(
+                    '${profileController.profileModel!.fName} ${profileController.profileModel!.lName}',
+                    style: PoppinsMedium.copyWith(fontSize: Dimensions.fontSizeExtraLarge + 10,color: Theme.of(context).cardColor),
+                  ),
+                ],
               ),
               const SizedBox(height: 30),
 
@@ -167,8 +164,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ]),
 
             ]),
-          ))),
-        );
+          )));
+       
+       
+       
+        
+        //  ProfileBgWidget(
+        //   backButton: false,
+        //   circularImage: Container(
+        //     decoration: BoxDecoration(
+        //       border: Border.all(width: 2, color: Theme.of(context).cardColor),
+        //       shape: BoxShape.circle,
+        //     ),
+        //     alignment: Alignment.center,
+        //     child: ClipOval(child: CustomImageWidget(
+        //       image: '${profileController.profileModel != null ? profileController.profileModel!.imageFullUrl : ''}',
+        //       height: 100, width: 100, fit: BoxFit.cover,
+        //     )),
+        //   ),
+        //   mainWidget:
+          
+          
+       
+       
+       
+       
+       
+        // );
       }),
     );
   }
