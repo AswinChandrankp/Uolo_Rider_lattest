@@ -47,7 +47,7 @@ class _NewRequestDialogWidgetState extends State<NewRequestDialogWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
+    return widget.isRequest ? Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Dimensions.radiusSmall)),
       child: Padding(
         padding: const EdgeInsets.all(Dimensions.paddingSizeLarge),
@@ -107,6 +107,6 @@ class _NewRequestDialogWidgetState extends State<NewRequestDialogWidget> {
           ]);
         }),
       ),
-    );
+    )  : SizedBox();
   }
 }

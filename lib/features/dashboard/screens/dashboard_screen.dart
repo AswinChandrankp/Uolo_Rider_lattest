@@ -64,7 +64,7 @@ class DashboardScreenState extends State<DashboardScreen> {
       if(type != 'assign' && type != 'new_order' && type != 'message' && type != 'order_request' && type != 'order_status') {
         NotificationHelper.showNotification(message, flutterLocalNotificationsPlugin);
       }
-      if(type == 'new_order' || type == 'order_request') {
+      if(type == 'new_order') {
         Get.find<OrderController>().getCurrentOrders();
         Get.find<OrderController>().getLatestOrders();
         Get.dialog(NewRequestDialogWidget(isRequest: true, onTap: () => _navigateRequestPage(), orderId: int.parse(message.data['order_id'].toString()), isParcel: isParcel));
